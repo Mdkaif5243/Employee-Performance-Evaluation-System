@@ -72,4 +72,3 @@ Create a project folder and place *.java files under src/.
 
 (Optional) If you plan to use MySQL, create the schema and configure JDBC connection strings in a DBHelper or similar class.
 
-Compile:
