@@ -1,74 +1,76 @@
-# Employee-Performance-Evaluation-System
-
-Project Title
-
-Employee Performance Evaluation System
+# 📊 Employee Performance Evaluation System
 
 
 
-Project Description
+## 📜 Project Overview
+The **Employee Performance Evaluation System** is a Java-based desktop application developed to automate and streamline the HR appraisal process. It replaces manual paperwork with a secure, digital platform where managers can evaluate employees, and employees can track their progress, set goals, and submit feedback.
 
-A desktop-based application built with Java (Swing) that provides a digital platform where managers can evaluate employee performance, set goals, and provide constructive feedback. Employees can view their evaluations, track goals, and access performance reports and analytics.
+This project was built to demonstrate **Java Swing (GUI)** capabilities integrated with a **MySQL Database** via JDBC.
 
-Key features:
+---
 
-Performance Evaluation by Managers
+## 🌟 Key Features
 
-Goal Setting and Feedback System
+### 👨‍💼 For Managers (Admin)
+- **Secure Login:** Role-based authentication to prevent unauthorized access.
+- **Team Dashboard:** View a real-time roster of all employees and their departments.
+- **Performance Evaluation:** Rate employees (1-10) and provide detailed feedback/comments.
+- **Data Persistence:** All evaluations are instantly saved to the database.
 
-Employee Performance Tracking
+### 👨‍💻 For Employees (Users)
+- **Personal Dashboard:** A dedicated hub displaying the user's profile.
+- **Goal Setting:** Create and track professional goals with deadlines and priority levels.
+- **Feedback System:** Submit anonymous or signed feedback/complaints to HR.
+- **View Reports:** Access past performance reports and manager feedback.
 
-Personal Goal Management
+---
 
-Performance Reports and Analytics
+## 🛠️ Tech Stack
 
-Technology Stack
+- **Language:** Java (JDK 24)
+- **Frontend:** Java Swing (JFrame, JPanel, JTable)
+- **Backend:** MySQL Database
+- **Connectivity:** JDBC (Java Database Connectivity)
+- **Driver:** MySQL Connector/J 9.5.0
+- **Tools:** IntelliJ IDEA, MySQL Workbench
 
-Language: Java
+---
 
-UI: Java Swing (desktop GUI)
+## 🗄️ Database Schema
 
-Database: MySQL (via JDBC) — mock data is used in the demo code
+The project uses a database named `employee_system` with the following tables:
 
-Build / Run: javac / java (or an IDE like IntelliJ IDEA / Eclipse)
+| Table Name | Description |
+| :--- | :--- |
+| **`users`** | Stores Employee IDs, Names, Passwords, Roles, and Departments. |
+| **`evaluations`** | Stores performance ratings and feedback from managers. |
+| **`goals`** | Stores professional goals set by employees. |
+| **`feedback`** | Stores complaints or suggestions submitted by employees. |
 
-System Workflow Overview
+---
 
-Login: Manager and Employee log into the system.
+## ⚙️ Installation & Setup Guide
 
-Performance Evaluation: Managers evaluate employee performance using predefined criteria.
+Follow these steps to run the project on your local machine.
 
-Goal Setting: Managers assign goals with descriptions and target dates.
+### 1️⃣ Prerequisites
+* Java Development Kit (JDK) installed.
+* MySQL Server installed and running.
+* IntelliJ IDEA (or Eclipse/NetBeans).
 
-Feedback: Managers provide ratings and comments.
+### 2️⃣ Database Configuration
+1.  Open **MySQL Workbench**.
+2.  Copy the SQL script below and run it to set up the database:
 
-Performance Tracking: Employees view feedback and progress.
+```sql
+CREATE DATABASE employee_system;
+USE employee_system;
 
-Personal Goals: Employees set and monitor their development goals.
+-- Create Tables
+CREATE TABLE users (empId VARCHAR(20) PRIMARY KEY, name VARCHAR(50), email VARCHAR(50), password VARCHAR(30), role VARCHAR(20), department VARCHAR(30));
+CREATE TABLE evaluations (review_id INT AUTO_INCREMENT PRIMARY KEY, empId VARCHAR(20), rating VARCHAR(20), feedback VARCHAR(255), date TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE goals (goal_id INT AUTO_INCREMENT PRIMARY KEY, empId VARCHAR(20), title VARCHAR(100), description VARCHAR(255), deadline VARCHAR(20), priority VARCHAR(20), status VARCHAR(20) DEFAULT 'Pending');
+CREATE TABLE feedback (feedback_id INT AUTO_INCREMENT PRIMARY KEY, empId VARCHAR(20), type VARCHAR(20), message VARCHAR(255), rating INT, submitted_by VARCHAR(50));
 
-Reports: System generates visual/textual reports for review.
-
-Project Structure (files / classes)
-EmployeePerformanceEvaluationSystem/
-├── src/
-│   ├── Login.java            // Login page (common for manager & employee)
-│   ├── SignUp.java           // Sign-up page for new users
-│   ├── ManagerDashboard.java // Dashboard for manager
-│   ├── EmployeeDashboard.java// Dashboard for employee
-│   ├── PerformanceEvaluation.java // Manager input for evaluating employees
-│   ├── GoalSetting.java      // Manager sets employee goals
-│   ├── Feedback.java         // Manager provides feedback
-│   ├── PerformanceReport.java// Generates reports (manager & employee)
-│   └── Employee.java         // Employee data model
-
-
-The demo code included in this README contains two main GUI classes: Login.java and SignUp.java (mock data, no DB). Replace mock data sections with JDBC/MySQL code when integrating with a real database.
-
-How to run (quick start)
-
-Make sure you have JDK (11+) installed and javac/java on PATH.
-
-Create a project folder and place *.java files under src/.
-
-(Optional) If you plan to use MySQL, create the schema and configure JDBC connection strings in a DBHelper or similar class.
-
+-- Insert Default Admin User
+INSERT INTO users VALUES('M001', 'Admin Manager', 'admin@test.com', 'admin123', 'Manager', 'HR');
